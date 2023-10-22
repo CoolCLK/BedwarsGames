@@ -84,6 +84,19 @@ public class ChestGui implements Listener {
         return guiItem;
     }
 
+    public GuiItem getItem(int slot) {
+        return this.getItems().stream().filter(guiItem -> guiItem.getSlot() == slot).findAny().orElse(null);
+    }
+
+    public GuiItem replaceItem(int slot, ItemStack itemStack) {
+        if (this.getItem(slot) == null) {
+            return this.addItem(slot, itemStack);
+        }
+        GuiItem item = this.getItem(slot);
+        item.setItemStack(itemStack);
+        return item;
+    }
+
     public List<GuiItem> getItems() {
         return this.items;
     }
