@@ -117,8 +117,9 @@ public class RandomMapGui extends ChestGui {
                 mapItem.setItemMeta(mapItemMeta);
                 chestGui.addItem(mapSlot, mapItem).setClickAction(() -> {
                     BedwarsRelApi.joinGame((Player) chestGui.getInventory().getHolder(), game);
-                    ((Player) chestGui.getInventory().getHolder()).closeInventory();
                     ((Player) chestGui.getInventory().getHolder()).sendMessage(BedwarsGames.getConfiguration().getString("prefix") + BedwarsGames.getMessage("change-game"));
+                    ((Player) chestGui.getInventory().getHolder()).closeInventory();
+                    chestGui.clearItems();
                 });
                 mapSlot++;
             }

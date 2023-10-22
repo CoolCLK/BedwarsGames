@@ -1,7 +1,6 @@
 package coolclk.bedwarsgames.listener;
 
 import coolclk.bedwarsgames.BedwarsGames;
-import coolclk.bedwarsgames.gui.ChestGui;
 import coolclk.bedwarsgames.util.BedwarsRelApi;
 import io.github.bedwarsrel.events.BedwarsGameStartedEvent;
 import io.github.bedwarsrel.villager.MerchantCategory;
@@ -16,8 +15,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,25 +25,6 @@ public class EventListener implements Listener {
 
     public static EventListener getInstance() {
         return INSTANCE;
-    }
-
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onInventoryClick(InventoryClickEvent event) {
-        for (ChestGui chestGui : ChestGui.getAllGui()) {
-            if (chestGui.equalsInventory(event.getInventory())) {
-                for (ChestGui.GuiItem guiItem : chestGui.getItems()) {
-                    if (guiItem.getSlot() == event.getSlot()) {
-                        guiItem.getClickAction().run();
-                    }
-                }
-                event.setCancelled(true);
-            }
-        }
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onInventoryClose(InventoryCloseEvent event) {
-        new ArrayList<>(ChestGui.getAllGui()).removeIf(chestGui -> chestGui.equalsInventory(event.getInventory()));
     }
 
     @EventHandler

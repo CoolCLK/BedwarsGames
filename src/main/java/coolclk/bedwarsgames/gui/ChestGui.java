@@ -1,22 +1,19 @@
 package coolclk.bedwarsgames.gui;
 
+import coolclk.bedwarsgames.BedwarsGames;
 import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
-public class ChestGui {
-    public static List<ChestGui> getAllGui() {
-        return guis;
-    }
-
+public class ChestGui implements Listener {
     public static class GuiItem {
         public interface Action {
             void run();
@@ -68,13 +65,11 @@ public class ChestGui {
         }
     }
 
-    protected static final List<ChestGui> guis = new ArrayList<>();
-
     protected final Inventory inventory;
     protected final List<GuiItem> items = new ArrayList<>();
 
     public ChestGui(InventoryHolder holder, int rows, String title) {
-        guis.add(this);
+        Bukkit.getServer().getPluginManager().registerEvents(this, BedwarsGames.getInstance());
         this.inventory = Bukkit.createInventory(holder, 9 * rows, title);
     }
 
@@ -98,6 +93,18 @@ public class ChestGui {
     }
 
     public boolean equalsInventory(Inventory inventory) {
-        return inventory.getHolder() == this.getInventory().getHolder();
+        return Objects.equals(inventory, this.getInventory());
+    }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (this.equalsInventory(event.getInventory())) {
+            for (ChestGui.GuiItem guiItem : this.getItems()) {
+                if (guiItem.getSlot() == event.getSlot()) {
+                    guiItem.getClickAction().run();
+                }
+            }
+            event.setCancelled(true);
+        }
     }
 }
