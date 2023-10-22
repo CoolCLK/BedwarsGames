@@ -108,7 +108,7 @@ public class RandomMapGui extends ChestGui {
                 mapItemMeta.setLore(Arrays.asList(
                         BedwarsGames.getMessage("map-players")
                                 .replaceAll("\\{players}", String.valueOf(game.getPlayerAmount())
-                                .replaceAll("\\{max_players}", String.valueOf(game.getMaxPlayers()))),
+                                .replaceAll("\\{max_players}", String.valueOf(BedwarsRelApi.getGameMaxPlayers(game)))),
                         BedwarsGames.getMessage("map-state-" + (game.getState() == GameState.WAITING ? "waiting" :
                                 (game.getState() == GameState.RUNNING ? "running" :
                                 "stopping"))),
