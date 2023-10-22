@@ -105,10 +105,11 @@ public class RandomMapGui extends ChestGui {
                 ItemStack mapItem = new ItemStack(Material.STAINED_CLAY, 1, (game.getState() == GameState.WAITING ? (short) 5 : (game.getState() == GameState.RUNNING ? (short) 4 : (short) 14)));
                 ItemMeta mapItemMeta = mapItem.getItemMeta();
                 mapItemMeta.setDisplayName(BedwarsGames.getMessage("map-name").replaceAll("\\{name}", game.getName()));
+                String playerLore = BedwarsGames.getMessage("map-players");
+                playerLore = playerLore.replaceAll("\\{players}", String.valueOf(game.getPlayerAmount()));
+                playerLore = playerLore.replaceAll("\\{max_players}", String.valueOf(BedwarsRelApi.getGameMaxPlayers(game)));
                 mapItemMeta.setLore(Arrays.asList(
-                        BedwarsGames.getMessage("map-players")
-                                .replaceAll("\\{players}", String.valueOf(game.getPlayerAmount())
-                                .replaceAll("\\{max_players}", String.valueOf(BedwarsRelApi.getGameMaxPlayers(game)))),
+                        playerLore,
                         BedwarsGames.getMessage("map-state-" + (game.getState() == GameState.WAITING ? "waiting" :
                                 (game.getState() == GameState.RUNNING ? "running" :
                                 "stopping"))),
