@@ -60,8 +60,9 @@ public class RandomMapGui extends ChestGui {
                         selectGame.set(game);
                     }
                 });
-                BedwarsRelApi.joinGame(((Player) chestGui.getInventory().getHolder()), selectGame.get());
-                ((Player) chestGui.getInventory().getHolder()).sendMessage(BedwarsGames.getConfiguration().getString("prefix") + BedwarsGames.getMessage("change-game").replaceAll("\\{map}", selectGame.get().getName()));
+                if (BedwarsRelApi.joinGame(((Player) chestGui.getInventory().getHolder()), selectGame.get())){
+                    ((Player) chestGui.getInventory().getHolder()).sendMessage(BedwarsGames.getConfiguration().getString("prefix") + BedwarsGames.getMessage("change-game").replaceAll("\\{map}", selectGame.get().getName()));
+                }
             }
         });
         chestGui.replaceItem(menuConfig.getInt("items.map.slot"), mapItem).setClickAction(() -> changeGuiToMap(mode, menuConfig, chestGui, 0));
@@ -112,13 +113,25 @@ public class RandomMapGui extends ChestGui {
                         playerLore,
                         BedwarsGames.getMessage("map-state-" + (game.getState() == GameState.WAITING ? "waiting" :
                                 (game.getState() == GameState.RUNNING ? "running" :
-                                "stopping"))),
-                        "",
-                        BedwarsGames.getMessage("map-join")));
+                                        "stopping"))), "", BedwarsGames.getMessage("map-join")));
                 mapItem.setItemMeta(mapItemMeta);
                 chestGui.replaceItem(mapSlot, mapItem).setClickAction(() -> {
+                    switch (game.getState()) {
+                        case WAITING:
+                        case RUNNING: {
+                            if (BedwarsRelApi.joinGame(((Player) chestGui.getInventory().getHolder()), game)) {
+                                ((Player) chestGui.getInventory().getHolder()).sendMessage(BedwarsGames.getConfiguration().getString("prefix") + BedwarsGames.getMessage("change-game").replaceAll("\\{map}", game.getName()));
+                            } else {
+                                ((Player) chestGui.getInventory().getHolder()).sendMessage(BedwarsGames.getConfiguration().getString("prefix") + BedwarsGames.getMessage("player-in-game"));
+                            }
+                            break;
+                        }
+                        case STOPPED: {
+                            ((Player) chestGui.getInventory().getHolder()).sendMessage(BedwarsGames.getConfiguration().getString("prefix") + BedwarsGames.getMessage("game-stopping"));
+                            break;
+                        }
+                    }
                     BedwarsRelApi.joinGame((Player) chestGui.getInventory().getHolder(), game);
-                    ((Player) chestGui.getInventory().getHolder()).sendMessage(BedwarsGames.getConfiguration().getString("prefix") + BedwarsGames.getMessage("change-game").replaceAll("\\{map}", game.getName()));
                     ((Player) chestGui.getInventory().getHolder()).closeInventory();
                     chestGui.clearItems();
                 });

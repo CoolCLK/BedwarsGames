@@ -7,6 +7,8 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
+
 public final class BedwarsGames extends JavaPlugin {
     @Override
     public void onEnable() {
@@ -49,5 +51,9 @@ public final class BedwarsGames extends JavaPlugin {
 
     public static String getMessage(String key) {
         return getConfiguration().getConfigurationSection("messages").getString(key);
+    }
+
+    public static List<String> getMessages(String key) {
+        return getConfiguration().getConfigurationSection("messages").getStringList(key);
     }
 }

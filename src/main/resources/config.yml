@@ -1,8 +1,13 @@
 prefix: '§7[§bBedwarsGames§7] '
 
 messages:
+  help-message:
+    - '§e/bedwarsgames help          §aShow help messages'
+    - '§e/bedwarsgames reload        §aReload the plugin config'
+    - '§e/bedwarsgames mode <Mode>   §aOpen the mode menu'
+    - '§aMade by §bCoolCLK§a~'
   plugin-enable: '§aPlugin enabled'
-  plugin-disable: '§aDisabling the plugin'
+  plugin-disable: '§cDisabling the plugin'
   found-depend: '§aFound the depend plugin "{plugin}"'
   no-depend: '§cLose the depend plugin "{plugin}", please check it!'
   no-permission: '§cNo permission'
@@ -20,6 +25,8 @@ messages:
   map-state-stopping: '§cStopping'
   map-join: '§eClick to join!'
   replace-shop: '§aSuccessfully replace game "{game}" shop to "{shop}"!'
+  player-in-game: '§cYou are in game!'
+  game-stopping: '§cGame is stopping!'
 
 modes:
   solo:

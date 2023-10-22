@@ -1,8 +1,13 @@
 prefix: '§7[§bBedwarsGames§7] '
 
 messages:
+  help-message:
+    - '§e/bedwarsgames help          §a显示帮助消息'
+    - '§e/bedwarsgames reload        §a重载插件配置文件'
+    - '§e/bedwarsgames mode <Mode>   §a打开模式界面'
+    - '§a由 §bCoolCLK§a 制作~'
   plugin-enable: '§a启用插件中'
-  plugin-disable: '§a禁用插件中'
+  plugin-disable: '§c禁用插件中'
   found-depend: '§a成功找到依赖 "{plugin}"'
   no-depend: '§c无法找到依赖 "{plugin}", 请检查!'
   no-permission: '§c你没有权限来执行这条指令'
@@ -20,6 +25,8 @@ messages:
   map-state-stopping: '§c停止中'
   map-join: '§e点击加入!'
   replace-shop: '§a成功将游戏 "{game}" 商店替换为 "{shop}"!'
+  player-in-game: '§c你正在游戏中!'
+  game-stopping: '§c游戏已停止!'
 
 modes:
   solo:
