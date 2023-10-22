@@ -25,7 +25,7 @@ public class BedwarsGamesCommand implements CommandExecutor, TabCompleter {
         if (strings.length >= 1) {
             switch (strings[0]) {
                 case "help": {
-                    messages.addAll(BedwarsGames.getMessages("not-player"));
+                    messages.addAll(BedwarsGames.getMessages("help-message"));
                     break;
                 }
                 case "mode": {
