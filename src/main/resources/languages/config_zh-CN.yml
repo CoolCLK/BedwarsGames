@@ -1,0 +1,216 @@
+prefix: '§7[§bBedwarsGames§7] '
+
+messages:
+  plugin-enable: '§a启用插件中'
+  plugin-disable: '§a禁用插件中'
+  found-depend: '§a成功找到依赖 "{plugin}"'
+  no-depend: '§c无法找到依赖 "{plugin}", 请检查!'
+  no-permission: '§c你没有权限来执行这条指令'
+  unknown-command: '§c未知的指令'
+  unfilled-command: '§c不完整的指令'
+  reloading: '§e重载插件中...'
+  reloaded: '§a插件成功重载'
+  reload-error: '§c重载插件时出错'
+  not-player: '§c你不是一个玩家!'
+  change-game: '§b更换地图: §e{map}'
+  map-name: '§a{name}'
+  map-players: '§7玩家: {players}/{max_players}'
+  map-state-waiting: '§a等待中'
+  map-state-running: '§e运行中'
+  map-state-stopping: '§c停止中'
+  map-join: '§e点击加入!'
+  replace-shop: '§a成功将游戏 "{game}" 商店替换为 "{shop}"!'
+
+modes:
+  solo:
+    name: '单人'
+    menu:
+      title: '起床战争 (单人)'
+      rows: 4
+      items:
+        random:
+          slot: 12
+          name: '§a起床战争 (单人)'
+          lore:
+            - '§7游玩单人起床战争'
+            - ' '
+            - '§e点击游玩!'
+        map:
+          slot: 14
+          name: '§a选择地图 (单人)'
+          lore:
+            - '§7从服务器可用的地图列表中'
+            - '§7选择你想要游玩的地图。'
+            - ' '
+            - '§e点击选择!'
+        close:
+          slot: 31
+          name: '§c关闭'
+          lore: []
+        page:
+          slot: 31
+          name: '§e页面 §f[§e{page}§f/§b{max_page}§f]'
+          lore:
+            - '§7点击返回界面'
+        previous:
+          slot: 27
+          name: '§e上一页'
+          lore: []
+        next:
+          slot: 35
+          name: '§e下一页'
+          lore: []
+    games:
+      - ExampleGame
+  double:
+    name: '双人'
+    menu:
+      title: '起床战争 (双人)'
+      rows: 4
+      items:
+        random:
+          slot: 12
+          name: '§a起床战争 (双人)'
+          lore:
+            - '§7游玩双人起床战争'
+            - ' '
+            - '§e点击游玩!'
+        map:
+          slot: 14
+          name: '§a选择地图 (双人)'
+          lore:
+            - '§7从服务器可用的地图列表中'
+            - '§7选择你想要游玩的地图。'
+            - ' '
+            - '§e点击选择!'
+        close:
+          slot: 31
+          name: '§c关闭'
+          lore: []
+        page:
+          slot: 31
+          name: '§e页面 §f[§e{page}§f/§b{max_page}§f]'
+          lore:
+            - '§7点击返回界面'
+        previous:
+          slot: 27
+          name: '§e上一页'
+          lore: []
+        next:
+          slot: 35
+          name: '§e下一页'
+          lore: []
+    games:
+      - ExampleGame
+  triple:
+    name: '3v3v3v3'
+    menu:
+      title: '起床战争 (3v3v3v3)'
+      rows: 4
+      items:
+        random:
+          slot: 12
+          name: '§a起床战争 (3v3v3v3)'
+          lore:
+            - '§7游玩3v3v3v3起床战争'
+            - ' '
+            - '§e点击游玩!'
+        map:
+          slot: 14
+          name: '§a选择地图 (3v3v3v3)'
+          lore:
+            - '§7从服务器可用的地图列表中'
+            - '§7选择你想要游玩的地图。'
+            - ' '
+            - '§e点击选择!'
+        close:
+          slot: 31
+          name: '§c关闭'
+          lore: []
+        page:
+          slot: 31
+          name: '§e页面 §f[§e{page}§f/§b{max_page}§f]'
+          lore:
+            - '§7点击返回界面'
+        previous:
+          slot: 27
+          name: '§e上一页'
+          lore: []
+        next:
+          slot: 35
+          name: '§e下一页'
+          lore: []
+    games:
+      - ExampleGame
+  quadruple:
+    name: '4v4v4v4'
+    menu:
+      title: '起床战争 (4v4v4v4)'
+      rows: 4
+      items:
+        random:
+          slot: 12
+          name: '§a起床战争 (4v4v4v4)'
+          lore:
+            - '§7游玩4v4v4v4起床战争'
+            - ' '
+            - '§e点击游玩!'
+        map:
+          slot: 14
+          name: '§a选择地图 (4v4v4v4)'
+          lore:
+            - '§7从服务器可用的地图列表中'
+            - '§7选择你想要游玩的地图。'
+            - ' '
+            - '§e点击选择!'
+        close:
+          slot: 31
+          name: '§c关闭'
+          lore: []
+        page:
+          slot: 31
+          name: '§e页面 §f[§e{page}§f/§b{max_page}§f]'
+          lore:
+            - '§7点击返回界面'
+        previous:
+          slot: 27
+          name: '§e上一页'
+          lore: []
+        next:
+          slot: 35
+          name: '§e下一页'
+          lore: []
+    games:
+      - ExampleGame
+
+games:
+  special-game:
+    shop: special-shop.yml
+    damage:
+      CONTACT: true
+      ENTITY_ATTACK: true
+      ENTITY_SWEEP_ATTACK: true
+      PROJECTILE: true
+      SUFFOCATION: true
+      FALL: true
+      FIRE: true
+      FIRE_TICK: true
+      MELTING: true
+      LAVA: true
+      DROWNING: true
+      BLOCK_EXPLOSION: true
+      ENTITY_EXPLOSION: true
+      VOID: true
+      LIGHTNING: true
+      SUICIDE: true
+      STARVATION: true
+      POISON: true
+      MAGIC: true
+      WITHER: true
+      FALLING_BLOCK: true
+      THORNS: true
+      DRAGON_BREATH: true
+      CUSTOM: true
+      FLY_INTO_WALL: true
+      HOT_FLOOR: true
+      CRAMMING: true

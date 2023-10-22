@@ -1,0 +1,21 @@
+### SHOP ###
+### NOT ALLOWED CATEGORY MATERIAL: SLIME_BALL, SNOW_BALL, BUCKET, LAVA_BUCKET
+shop:
+  tnt-mode:
+    item: TNT
+    name: "TNT Mode"
+    order: 10
+    permission: bw.base
+    lore:
+      - "Click here"
+    offers:
+      - price:
+          - type: DIRT
+            amount: 1
+        reward:
+          - type: DIAMOND_BLOCK
+            amount: 64
+            meta:
+              ==: ItemMeta
+              meta-type: UNSPECIFIC
+schema-version: 1

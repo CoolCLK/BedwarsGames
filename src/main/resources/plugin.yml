@@ -1,0 +1,15 @@
+name: BedwarsGames
+version: '${project.version}'
+main: coolclk.bedwarsgames.BedwarsGames
+author: CoolCLK
+commands:
+  bedwarsgames:
+    description: /bedwarsgames
+    aliases: [bg]
+permissions:
+  bedwarsgames.mode:
+    default: true
+  bedwarsgames.admin:
+    default: op
+depend:
+  - BedwarsRel
