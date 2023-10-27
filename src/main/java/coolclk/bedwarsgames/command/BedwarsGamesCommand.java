@@ -28,10 +28,10 @@ public class BedwarsGamesCommand implements CommandExecutor, TabCompleter {
                     messages.addAll(BedwarsGames.getMessages("help-message"));
                     break;
                 }
-                case "mode": {
+                case "selector": {
                     if (strings.length > 1) {
                         if (commandSender instanceof Player) {
-                            RandomMapGui.openModeGui(strings[1], (Player) commandSender);
+                            RandomMapGui.openSelectorGui(strings[1], (Player) commandSender);
                         } else {
                             messages.add(BedwarsGames.getMessage("not-player"));
                         }
@@ -69,8 +69,8 @@ public class BedwarsGamesCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
         final List<String> tab = new ArrayList<>();
         if (strings.length <= 1) {
-            tab.addAll(Arrays.asList("help", "reload", "mode"));
-        } else if (strings[0].equals("mode") && strings.length == 2) {
+            tab.addAll(Arrays.asList("help", "reload", "selector"));
+        } else if (strings[0].equals("selector") && strings.length == 2) {
             tab.addAll(BedwarsGames.getInstance().getConfig().getConfigurationSection("modes").getKeys(false));
         }
         return tab;

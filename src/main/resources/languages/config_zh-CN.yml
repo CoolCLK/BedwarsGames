@@ -4,7 +4,7 @@ messages:
   help-message:
     - '§e/bedwarsgames help          §a显示帮助消息'
     - '§e/bedwarsgames reload        §a重载插件配置文件'
-    - '§e/bedwarsgames mode <Mode>   §a打开模式界面'
+    - '§e/bedwarsgames selector [模式]   §a打开地图选择器界面'
     - '§a由 §bCoolCLK§a 制作~'
   plugin-enable: '§a启用插件中'
   plugin-disable: '§c禁用插件中'
@@ -19,6 +19,7 @@ messages:
   not-player: '§c你不是一个玩家!'
   change-game: '§b更换地图: §e{map}'
   map-name: '§a{name}'
+  map-mode: '§7模式: §a{mode}'
   map-players: '§7玩家: {players}/{max_players}'
   map-state-waiting: '§a等待中'
   map-state-running: '§e运行中'
@@ -29,6 +30,37 @@ messages:
   game-stopping: '§c游戏已停止!'
 
 modes:
+  tnt-mode:
+    name: 'TNT 模式'
+  xp-mode:
+    name: '经验模式'
+
+selectors:
+  _GLOBAL_:
+    menu:
+      title: '起床战争 (所有)'
+      rows: 6
+      items:
+        random:
+          slot: 12
+          name: '§a起床战争 (所有)'
+          lore:
+            - '§7游玩所有起床战争'
+            - ' '
+            - '§e点击游玩!'
+        page:
+          slot: 31
+          name: '§e页面 §f[§e{page}§f/§b{max_page}§f]'
+          lore:
+            - '§7点击关闭界面'
+        previous:
+          slot: 27
+          name: '§e上一页'
+          lore: []
+        next:
+          slot: 35
+          name: '§e下一页'
+          lore: []
   solo:
     name: '单人'
     menu:
@@ -191,33 +223,12 @@ modes:
       - ExampleGame
 
 games:
-  special-game:
-    shop: special-shop.yml
+  xp-game:
+    mode: xp-mode
+  tnt-game:
+    mode: tnt-mode
+    shop: tnt-shop.yml
     damage:
-      CONTACT: true
-      ENTITY_ATTACK: true
-      ENTITY_SWEEP_ATTACK: true
-      PROJECTILE: true
-      SUFFOCATION: true
-      FALL: true
-      FIRE: true
-      FIRE_TICK: true
-      MELTING: true
-      LAVA: true
-      DROWNING: true
+      FALL: false
       BLOCK_EXPLOSION: true
       ENTITY_EXPLOSION: true
-      VOID: true
-      LIGHTNING: true
-      SUICIDE: true
-      STARVATION: true
-      POISON: true
-      MAGIC: true
-      WITHER: true
-      FALLING_BLOCK: true
-      THORNS: true
-      DRAGON_BREATH: true
-      CUSTOM: true
-      FLY_INTO_WALL: true
-      HOT_FLOOR: true
-      CRAMMING: true

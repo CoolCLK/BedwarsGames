@@ -3,7 +3,7 @@
 shop:
   tnt-mode:
     item: TNT
-    name: "TNT Mode"
+    name: "Special Shop"
     order: 10
     permission: bw.base
     lore:

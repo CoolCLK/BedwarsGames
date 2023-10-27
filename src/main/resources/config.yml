@@ -4,7 +4,7 @@ messages:
   help-message:
     - '§e/bedwarsgames help          §aShow help messages'
     - '§e/bedwarsgames reload        §aReload the plugin config'
-    - '§e/bedwarsgames mode <Mode>   §aOpen the mode menu'
+    - '§e/bedwarsgames selector <Mode>   §aOpen the selector menu'
     - '§aMade by §bCoolCLK§a~'
   plugin-enable: '§aPlugin enabled'
   plugin-disable: '§cDisabling the plugin'
@@ -19,6 +19,7 @@ messages:
   not-player: '§cYou are not a player!'
   change-game: '§bChange map: §e{map}'
   map-name: '§a{name}'
+  map-mode: '§7Mode: §a{mode}'
   map-players: '§7Players: {players}/{max_players}'
   map-state-waiting: '§aWaiting'
   map-state-running: '§eRunning'
@@ -29,6 +30,37 @@ messages:
   game-stopping: '§cGame is stopping!'
 
 modes:
+  tnt-mode:
+    name: 'TNT Mode'
+  xp-mode:
+    name: 'XP Mode'
+
+selectors:
+  _GLOBAL_:
+    menu:
+      title: 'Bedwars (All)'
+      rows: 6
+      items:
+        random:
+          slot: 12
+          name: '§aBedwars (All)'
+          lore:
+            - '§7Play all bedwars game.'
+            - ' '
+            - '§eClick play!'
+        page:
+          slot: 31
+          name: '§ePage §f[§e{page}§f/§b{max_page}§f]'
+          lore:
+            - '§7Click close the menu'
+        previous:
+          slot: 27
+          name: '§ePrevious'
+          lore: []
+        next:
+          slot: 35
+          name: '§eNext'
+          lore: []
   solo:
     name: 'Solo'
     menu:
@@ -191,33 +223,12 @@ modes:
       - ExampleGame
 
 games:
-  special-game:
-    shop: special-shop.yml
+  xp-game:
+    mode: xp-mode
+  tnt-game:
+    mode: tnt-mode
+    shop: tnt-shop.yml
     damage:
-      CONTACT: true
-      ENTITY_ATTACK: true
-      ENTITY_SWEEP_ATTACK: true
-      PROJECTILE: true
-      SUFFOCATION: true
-      FALL: true
-      FIRE: true
-      FIRE_TICK: true
-      MELTING: true
-      LAVA: true
-      DROWNING: true
+      FALL: false
       BLOCK_EXPLOSION: true
       ENTITY_EXPLOSION: true
-      VOID: true
-      LIGHTNING: true
-      SUICIDE: true
-      STARVATION: true
-      POISON: true
-      MAGIC: true
-      WITHER: true
-      FALLING_BLOCK: true
-      THORNS: true
-      DRAGON_BREATH: true
-      CUSTOM: true
-      FLY_INTO_WALL: true
-      HOT_FLOOR: true
-      CRAMMING: true
