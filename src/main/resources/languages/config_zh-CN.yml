@@ -5,7 +5,6 @@ messages:
     - '§e/bedwarsgames help                 §a显示帮助消息'
     - '§e/bedwarsgames reload               §a重载插件配置文件'
     - '§e/bedwarsgames selector [模式]       §a打开地图选择器界面'
-    - '§e/bedwarsgames configure <键> <值>   §a配置插件'
     - '§a由 §bCoolCLK§a 制作~'
   plugin-enable: '§a启用插件中'
   plugin-disable: '§c禁用插件中'

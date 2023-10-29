@@ -5,7 +5,6 @@ messages:
     - '§e/bedwarsgames help                            §aShow help messages'
     - '§e/bedwarsgames reload                          §aReload the plugin config'
     - '§e/bedwarsgames selector <Mode>                 §aOpen the selector menu'
-    - '§e/bedwarsgames configure [selector/game ...]   §aConfigure the plugin'
     - '§aMade by §bCoolCLK§a~'
   plugin-enable: '§aPlugin enabled'
   plugin-disable: '§cDisabling the plugin'
