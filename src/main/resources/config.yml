@@ -4,7 +4,7 @@ messages:
   help-message:
     - '§e/bedwarsgames help                            §aShow help messages'
     - '§e/bedwarsgames reload                          §aReload the plugin config'
-    - '§e/bedwarsgames selector <Mode>                 §aOpen the selector menu'
+    - '§e/bedwarsgames selector <Name>                 §aOpen the selector menu'
     - '§aMade by §bCoolCLK§a~'
   plugin-enable: '§aPlugin enabled'
   plugin-disable: '§cDisabling the plugin'
@@ -50,6 +50,18 @@ selectors:
             - '§7Play all bedwars game.'
             - ' '
             - '§eClick play!'
+        map:
+          slot: 14
+          name: '§aSelect Map (All)'
+          lore:
+            - '§7Choose a map'
+            - '§7from active maps on server.'
+            - ' '
+            - '§eClick choose!'
+        close:
+          slot: 31
+          name: '§cClose'
+          lore: []
         page:
           slot: 31
           name: '§ePage §f[§e{page}§f/§b{max_page}§f]'

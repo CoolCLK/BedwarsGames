@@ -67,7 +67,7 @@ public class BedwarsGamesCommand implements CommandExecutor, TabCompleter {
         if (strings.length <= 1) {
             tab.addAll(Arrays.asList("help", "reload", "selector"));
         } else if (strings[0].equals("selector") && strings.length == 2) {
-            tab.addAll(BedwarsGames.getInstance().getConfig().getConfigurationSection("modes").getKeys(false));
+            tab.addAll(BedwarsGames.getInstance().getConfig().getConfigurationSection("selectors").getKeys(false));
         }
         tab.removeIf(t -> !t.startsWith(strings[strings.length - 1]));
         return tab;

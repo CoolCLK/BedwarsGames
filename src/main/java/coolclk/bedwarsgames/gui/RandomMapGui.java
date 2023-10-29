@@ -107,12 +107,12 @@ public class RandomMapGui extends ChestGui {
                 this.replaceItem(menuConfig.getInt("items.next.slot"), nextItem).setClickAction(() -> changeGuiToMap(selector, menuConfig, page + 1));
             }
 
-            generateMapSlots(gameList, page * (this.getInventory().getSize() - 9), this.getInventory().getSize() - 9);
+            generateMapSlots(gameList, 0, page * (this.getInventory().getSize() - 9), this.getInventory().getSize() - 9);
         }
     }
     
-    protected void generateMapSlots(List<Game> games, int startSlot, int size) {
-        for (int i = 0; i < size && startSlot < games.size(); i++) {
+    protected void generateMapSlots(List<Game> games, int startSlot, int startIndex, int size) {
+        for (int i = startIndex; i < size && i < games.size(); i++) {
             Game game = games.get(i);
             ItemStack mapItem = new ItemStack(Material.STAINED_CLAY, 1, (game.getState() == GameState.WAITING ? (short) 5 : (game.getState() == GameState.RUNNING ? (short) 4 : (short) 14)));
             ItemMeta mapItemMeta = mapItem.getItemMeta();
@@ -124,10 +124,10 @@ public class RandomMapGui extends ChestGui {
             if (BedwarsGames.getConfiguration().contains("games." + game.getName() + ".mode")) {
                 String keyName = "modes." + BedwarsGames.getConfiguration().getString("games." + game.getName() + ".mode") + ".name";
                 if (BedwarsGames.getConfiguration().contains(keyName)) {
-                    mapLore.add(BedwarsGames.getConfiguration().getString(keyName));
+                    mapLore.add(BedwarsGames.getMessage("map-mode").replaceAll("\\{mode}", BedwarsGames.getConfiguration().getString(keyName)));
                 }
             } else if (BedwarsGames.getConfiguration().contains("modes._DEFAULT_.name")) {
-                mapLore.add(BedwarsGames.getConfiguration().getString("modes._DEFAULT_.name"));
+                mapLore.add(BedwarsGames.getMessage("map-mode").replaceAll("\\{mode}", BedwarsGames.getConfiguration().getString("modes._DEFAULT_.name")));
             }
             mapLore.add(playerLore);
             mapLore.add(BedwarsGames.getMessage("map-state-" + (game.getState() == GameState.WAITING ? "waiting" :

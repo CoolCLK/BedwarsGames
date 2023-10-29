@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -128,11 +129,13 @@ public class ChestGui implements Listener {
     }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent event) {
+    public void onInventoryClick(InventoryInteractEvent event) {
         if (this.equalsInventory(event.getInventory())) {
-            for (ChestGui.GuiItem guiItem : this.getItems()) {
-                if (guiItem.getSlot() == event.getSlot()) {
-                    guiItem.getClickAction().run();
+            if (event instanceof InventoryClickEvent) {
+                for (ChestGui.GuiItem guiItem : this.getItems()) {
+                    if (guiItem.getSlot() == (((InventoryClickEvent) event).getSlot())) {
+                        guiItem.getClickAction().run();
+                    }
                 }
             }
             event.setCancelled(true);

@@ -4,7 +4,7 @@ messages:
   help-message:
     - '§e/bedwarsgames help                 §a显示帮助消息'
     - '§e/bedwarsgames reload               §a重载插件配置文件'
-    - '§e/bedwarsgames selector [模式]       §a打开地图选择器界面'
+    - '§e/bedwarsgames selector [名称]       §a打开地图选择器界面'
     - '§a由 §bCoolCLK§a 制作~'
   plugin-enable: '§a启用插件中'
   plugin-disable: '§c禁用插件中'
@@ -41,7 +41,7 @@ selectors:
   _GLOBAL_:
     menu:
       title: '起床战争 (所有)'
-      rows: 6
+      rows: 4
       items:
         random:
           slot: 12
@@ -50,6 +50,18 @@ selectors:
             - '§7游玩所有起床战争'
             - ' '
             - '§e点击游玩!'
+        map:
+          slot: 14
+          name: '§a选择地图 (所有)'
+          lore:
+            - '§7从服务器可用的地图列表中'
+            - '§7选择你想要游玩的地图。'
+            - ' '
+            - '§e点击选择!'
+        close:
+          slot: 31
+          name: '§c关闭'
+          lore: []
         page:
           slot: 31
           name: '§e页面 §f[§e{page}§f/§b{max_page}§f]'
