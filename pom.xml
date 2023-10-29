@@ -6,7 +6,7 @@
 
     <groupId>coolclk</groupId>
     <artifactId>BedwarsGames</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <name>BedwarsGames</name>
