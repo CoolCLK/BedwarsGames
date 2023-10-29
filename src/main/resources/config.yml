@@ -2,9 +2,10 @@ prefix: '§7[§bBedwarsGames§7] '
 
 messages:
   help-message:
-    - '§e/bedwarsgames help          §aShow help messages'
-    - '§e/bedwarsgames reload        §aReload the plugin config'
-    - '§e/bedwarsgames selector <Mode>   §aOpen the selector menu'
+    - '§e/bedwarsgames help                            §aShow help messages'
+    - '§e/bedwarsgames reload                          §aReload the plugin config'
+    - '§e/bedwarsgames selector <Mode>                 §aOpen the selector menu'
+    - '§e/bedwarsgames configure [selector/game ...]   §aConfigure the plugin'
     - '§aMade by §bCoolCLK§a~'
   plugin-enable: '§aPlugin enabled'
   plugin-disable: '§cDisabling the plugin'
@@ -30,8 +31,10 @@ messages:
   game-stopping: '§cGame is stopping!'
 
 modes:
+  _DEFAULT_:
+    name: '§7Normal'
   tnt-mode:
-    name: 'TNT Mode'
+    name: '§cTNT Mode'
   xp-mode:
     name: 'XP Mode'
 

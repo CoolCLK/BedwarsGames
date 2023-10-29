@@ -2,6 +2,7 @@ package coolclk.bedwarsgames.gui;
 
 import coolclk.bedwarsgames.BedwarsGames;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -65,7 +66,7 @@ public class ChestGui implements Listener {
         }
     }
 
-    protected final Inventory inventory;
+    protected Inventory inventory;
     protected final List<GuiItem> items = new ArrayList<>();
 
     public ChestGui(InventoryHolder holder, int rows, String title) {
@@ -107,6 +108,23 @@ public class ChestGui implements Listener {
 
     public boolean equalsInventory(Inventory inventory) {
         return Objects.equals(inventory, this.getInventory());
+    }
+
+    private void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
+    public void setRows(int rows) {
+        InventoryHolder holder = this.getInventory().getHolder();
+        ((Player) holder).closeInventory();
+        this.setInventory(Bukkit.createInventory(this.getInventory().getHolder(), 9 * rows, this.getInventory().getTitle()));
+        List<GuiItem> guiItems = new ArrayList<>(this.getItems());
+        this.getItems().clear();
+        for (GuiItem guiItem : guiItems) {
+            this.getInventory().setItem(guiItem.getSlot(), guiItem.getItemStack());
+            this.getItems().add(new GuiItem(this.getInventory(), guiItem.getSlot(), guiItem.getItemStack()));
+        }
+        ((Player) holder).openInventory(this.getInventory());
     }
 
     @EventHandler

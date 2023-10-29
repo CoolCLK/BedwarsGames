@@ -40,6 +40,17 @@ public class BedwarsGamesCommand implements CommandExecutor, TabCompleter {
                     }
                     break;
                 }
+                case "configure": {
+                    if (strings.length > 2) {
+                        Object o = BedwarsGames.getConfiguration().get(strings[1]);
+                        if (o instanceof List) {
+                            BedwarsGames.getConfiguration().set(strings[1], Arrays.asList(strings).subList(2, strings.length));
+                        } else {
+                            BedwarsGames.getConfiguration().set(strings[1], strings[2]);
+                        }
+                    }
+                    break;
+                }
                 case "reload": {
                     if (commandSender.hasPermission("bedwarsgames.admin")) {
                         messages.add(BedwarsGames.getMessage("reloading"));
@@ -69,9 +80,20 @@ public class BedwarsGamesCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
         final List<String> tab = new ArrayList<>();
         if (strings.length <= 1) {
-            tab.addAll(Arrays.asList("help", "reload", "selector"));
+            tab.addAll(Arrays.asList("help", "reload", "configure", "selector"));
         } else if (strings[0].equals("selector") && strings.length == 2) {
             tab.addAll(BedwarsGames.getInstance().getConfig().getConfigurationSection("modes").getKeys(false));
+        } else if (strings[0].equals("configure")) {
+            if (strings.length == 2) {
+                tab.addAll(BedwarsGames.getConfiguration().getConfigurationSection(strings[1]).getKeys(false));
+            } else {
+                Object o = BedwarsGames.getConfiguration().get(strings[1]);
+                if (o instanceof List) {
+                    tab.add(((List<?>) o).get(strings.length - 2).toString());
+                } else {
+                    tab.add(o.toString());
+                }
+            }
         }
         return tab;
     }

@@ -26,16 +26,16 @@ public class RandomMapGui extends ChestGui {
         if (selector == null) {
             selector = "_GLOBAL_";
         }
-        if (BedwarsGames.getConfiguration().getConfigurationSection("modes").contains(selector) && player.hasPermission("bedwarsgames.mode." + selector)) {
+        if (BedwarsGames.getConfiguration().getConfigurationSection("modes").contains(selector) && player.hasPermission("bedwarsgames.selector." + selector)) {
             ConfigurationSection menuConfig = BedwarsGames.getConfiguration().getConfigurationSection("selectors").getConfigurationSection(selector).getConfigurationSection("menu");
             RandomMapGui chestGui = new RandomMapGui(player, menuConfig.getInt("rows"), menuConfig.getString("title"));
-            chestGui.changeGuiToMain(selector, menuConfig, chestGui);
+            chestGui.changeGuiToMain(selector, menuConfig);
             player.openInventory(chestGui.getInventory());
         }
     }
 
-    protected void changeGuiToMain(String selector, ConfigurationSection menuConfig, ChestGui chestGui) {
-        chestGui.clearItems();
+    protected void changeGuiToMain(String selector, ConfigurationSection menuConfig) {
+        this.clearItems();
         ItemStack randomItem = new ItemStack(Material.BED), mapItem = new ItemStack(Material.SIGN), closeItem = new ItemStack(Material.BARRIER);
         ItemMeta randomItemMeta = randomItem.getItemMeta(), mapItemMeta = mapItem.getItemMeta(), closeItemMeta = closeItem.getItemMeta();
         randomItemMeta.setDisplayName(menuConfig.getString("items.random.name"));
@@ -47,7 +47,7 @@ public class RandomMapGui extends ChestGui {
         randomItem.setItemMeta(randomItemMeta);
         mapItem.setItemMeta(mapItemMeta);
         closeItem.setItemMeta(closeItemMeta);
-        chestGui.replaceItem(menuConfig.getInt("items.random.slot"), randomItem).setClickAction(() -> {
+        this.replaceItem(menuConfig.getInt("items.random.slot"), randomItem).setClickAction(() -> {
             List<Game> gameList = new ArrayList<>();
             BedwarsGames.getConfiguration().getStringList("selectors." + selector + ".games").forEach(name -> {
                 Game game = BedwarsRelApi.getGameByName(name);
@@ -62,31 +62,31 @@ public class RandomMapGui extends ChestGui {
                         selectGame.set(game);
                     }
                 });
-                if (BedwarsRelApi.joinGame(((Player) chestGui.getInventory().getHolder()), selectGame.get())){
-                    ((Player) chestGui.getInventory().getHolder()).sendMessage(BedwarsGames.getConfiguration().getString("prefix") + BedwarsGames.getMessage("change-game").replaceAll("\\{map}", selectGame.get().getName()));
+                if (BedwarsRelApi.joinGame(((Player) this.getInventory().getHolder()), selectGame.get())){
+                    ((Player) this.getInventory().getHolder()).sendMessage(BedwarsGames.getConfiguration().getString("prefix") + BedwarsGames.getMessage("change-game").replaceAll("\\{map}", selectGame.get().getName()));
                 }
             }
         });
-        chestGui.replaceItem(menuConfig.getInt("items.map.slot"), mapItem).setClickAction(() -> changeGuiToMap(selector, menuConfig, chestGui, 0));
-        chestGui.replaceItem(menuConfig.getInt("items.close.slot"), closeItem).setClickAction(((Player) chestGui.getInventory().getHolder())::closeInventory);
+        this.replaceItem(menuConfig.getInt("items.map.slot"), mapItem).setClickAction(() -> changeGuiToMap(selector, menuConfig, 0));
+        this.replaceItem(menuConfig.getInt("items.close.slot"), closeItem).setClickAction(((Player) this.getInventory().getHolder())::closeInventory);
     }
 
-    protected void changeGuiToMap(String selector, ConfigurationSection menuConfig, ChestGui chestGui, int page) {
-        chestGui.clearItems();
+    protected void changeGuiToMap(String selector, ConfigurationSection menuConfig, int page) {
+        this.clearItems();
         List<Game> gameList = new ArrayList<>();
         if (selector.equals("_GLOBAL_")) {
             gameList.addAll(BedwarsRel.getInstance().getGameManager().getGames());
         } else {
             BedwarsGames.getConfiguration().getStringList("selectors." + selector + ".games").forEach(name -> gameList.add(BedwarsRel.getInstance().getGameManager().getGame(name)));
         }
-        int maxPage = gameList.size() / (chestGui.getInventory().getSize() - 9);
+        int maxPage = gameList.size() / (this.getInventory().getSize() - 9);
 
         ItemStack pageItem = new ItemStack(Material.BOOK);
         ItemMeta pageItemMeta = pageItem.getItemMeta();
         pageItemMeta.setDisplayName(menuConfig.getString("items.page.name").replaceAll("\\{page}", String.valueOf(page + 1)).replaceAll("\\{max_page}", String.valueOf(maxPage + 1)));
         pageItemMeta.setLore(menuConfig.getStringList("items.page.lore"));
         pageItem.setItemMeta(pageItemMeta);
-        chestGui.replaceItem(menuConfig.getInt("items.page.slot"), pageItem).setClickAction(() -> changeGuiToMain(selector, menuConfig, chestGui));
+        this.replaceItem(menuConfig.getInt("items.page.slot"), pageItem).setClickAction(() -> changeGuiToMain(selector, menuConfig));
 
         if (!gameList.isEmpty()) {
             if (page - 1 >= 0) {
@@ -95,7 +95,7 @@ public class RandomMapGui extends ChestGui {
                 previousItemMeta.setDisplayName(menuConfig.getString("items.previous.name"));
                 previousItemMeta.setLore(menuConfig.getStringList("items.previous.lore"));
                 previousItem.setItemMeta(previousItemMeta);
-                chestGui.replaceItem(menuConfig.getInt("items.previous.slot"), previousItem).setClickAction(() -> changeGuiToMap(selector, menuConfig, chestGui, page - 1));
+                this.replaceItem(menuConfig.getInt("items.previous.slot"), previousItem).setClickAction(() -> changeGuiToMap(selector, menuConfig, page - 1));
             }
 
             if (page + 1 < maxPage) {
@@ -104,14 +104,14 @@ public class RandomMapGui extends ChestGui {
                 nextItemMeta.setDisplayName(menuConfig.getString("items.next.name"));
                 nextItemMeta.setLore(menuConfig.getStringList("items.next.lore"));
                 nextItem.setItemMeta(nextItemMeta);
-                chestGui.replaceItem(menuConfig.getInt("items.next.slot"), nextItem).setClickAction(() -> changeGuiToMap(selector, menuConfig, chestGui, page + 1));
+                this.replaceItem(menuConfig.getInt("items.next.slot"), nextItem).setClickAction(() -> changeGuiToMap(selector, menuConfig, page + 1));
             }
 
-            generateMapSlots(gameList, chestGui, page * (chestGui.getInventory().getSize() - 9), chestGui.getInventory().getSize() - 9);
+            generateMapSlots(gameList, page * (this.getInventory().getSize() - 9), this.getInventory().getSize() - 9);
         }
     }
     
-    protected void generateMapSlots(List<Game> games, ChestGui chestGui, int startSlot, int size) {
+    protected void generateMapSlots(List<Game> games, int startSlot, int size) {
         for (int i = 0; i < size && startSlot < games.size(); i++) {
             Game game = games.get(i);
             ItemStack mapItem = new ItemStack(Material.STAINED_CLAY, 1, (game.getState() == GameState.WAITING ? (short) 5 : (game.getState() == GameState.RUNNING ? (short) 4 : (short) 14)));
@@ -122,7 +122,12 @@ public class RandomMapGui extends ChestGui {
             playerLore = playerLore.replaceAll("\\{players}", String.valueOf(game.getPlayerAmount()));
             playerLore = playerLore.replaceAll("\\{max_players}", String.valueOf(BedwarsRelApi.getGameMaxPlayers(game)));
             if (BedwarsGames.getConfiguration().contains("games." + game.getName() + ".mode")) {
-                mapLore.add(BedwarsGames.getConfiguration().getString("modes." + BedwarsGames.getConfiguration().getString("games." + game.getName() + ".mode") + ".name"));
+                String keyName = "modes." + BedwarsGames.getConfiguration().getString("games." + game.getName() + ".mode") + ".name";
+                if (BedwarsGames.getConfiguration().contains(keyName)) {
+                    mapLore.add(BedwarsGames.getConfiguration().getString(keyName));
+                }
+            } else if (BedwarsGames.getConfiguration().contains("modes._DEFAULT_.name")) {
+                mapLore.add(BedwarsGames.getConfiguration().getString("modes._DEFAULT_.name"));
             }
             mapLore.add(playerLore);
             mapLore.add(BedwarsGames.getMessage("map-state-" + (game.getState() == GameState.WAITING ? "waiting" :
@@ -134,25 +139,25 @@ public class RandomMapGui extends ChestGui {
             mapLore.add(BedwarsGames.getMessage("map-join"));
             mapItemMeta.setLore(mapLore);
             mapItem.setItemMeta(mapItemMeta);
-            chestGui.replaceItem(startSlot, mapItem).setClickAction(() -> {
+            this.replaceItem(startSlot, mapItem).setClickAction(() -> {
                 switch (game.getState()) {
                     case WAITING:
                     case RUNNING: {
-                        if (BedwarsRelApi.joinGame(((Player) chestGui.getInventory().getHolder()), game)) {
-                            ((Player) chestGui.getInventory().getHolder()).sendMessage(BedwarsGames.getConfiguration().getString("prefix") + BedwarsGames.getMessage("change-game").replaceAll("\\{map}", game.getName()));
+                        if (BedwarsRelApi.joinGame(((Player) this.getInventory().getHolder()), game)) {
+                            ((Player) this.getInventory().getHolder()).sendMessage(BedwarsGames.getConfiguration().getString("prefix") + BedwarsGames.getMessage("change-game").replaceAll("\\{map}", game.getName()));
                         } else {
-                            ((Player) chestGui.getInventory().getHolder()).sendMessage(BedwarsGames.getConfiguration().getString("prefix") + BedwarsGames.getMessage("player-in-game"));
+                            ((Player) this.getInventory().getHolder()).sendMessage(BedwarsGames.getConfiguration().getString("prefix") + BedwarsGames.getMessage("player-in-game"));
                         }
                         break;
                     }
                     case STOPPED: {
-                        ((Player) chestGui.getInventory().getHolder()).sendMessage(BedwarsGames.getConfiguration().getString("prefix") + BedwarsGames.getMessage("game-stopping"));
+                        ((Player) this.getInventory().getHolder()).sendMessage(BedwarsGames.getConfiguration().getString("prefix") + BedwarsGames.getMessage("game-stopping"));
                         break;
                     }
                 }
-                BedwarsRelApi.joinGame((Player) chestGui.getInventory().getHolder(), game);
-                ((Player) chestGui.getInventory().getHolder()).closeInventory();
-                chestGui.clearItems();
+                BedwarsRelApi.joinGame((Player) this.getInventory().getHolder(), game);
+                ((Player) this.getInventory().getHolder()).closeInventory();
+                this.clearItems();
             });
             startSlot++;
         }
