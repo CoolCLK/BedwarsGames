@@ -29,14 +29,10 @@ public class BedwarsGamesCommand implements CommandExecutor, TabCompleter {
                     break;
                 }
                 case "selector": {
-                    if (strings.length > 1) {
-                        if (commandSender instanceof Player) {
-                            RandomMapGui.openSelectorGui(strings[1], (Player) commandSender);
-                        } else {
-                            messages.add(BedwarsGames.getMessage("not-player"));
-                        }
+                    if (commandSender instanceof Player) {
+                        RandomMapGui.openSelectorGui(strings.length > 1 ? strings[1] : null, (Player) commandSender);
                     } else {
-                        messages.add(BedwarsGames.getMessage("unfilled-command"));
+                        messages.add(BedwarsGames.getMessage("not-player"));
                     }
                     break;
                 }
@@ -73,7 +69,7 @@ public class BedwarsGamesCommand implements CommandExecutor, TabCompleter {
         } else if (strings[0].equals("selector") && strings.length == 2) {
             tab.addAll(BedwarsGames.getInstance().getConfig().getConfigurationSection("modes").getKeys(false));
         }
-        tab.removeIf(t -> !t.startsWith(s));
+        tab.removeIf(t -> !t.startsWith(strings[strings.length - 1]));
         return tab;
     }
 }

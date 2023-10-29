@@ -26,7 +26,7 @@ public class RandomMapGui extends ChestGui {
         if (selector == null) {
             selector = "_GLOBAL_";
         }
-        if (BedwarsGames.getConfiguration().getConfigurationSection("modes").contains(selector) && player.hasPermission("bedwarsgames.selector." + selector)) {
+        if (BedwarsGames.getConfiguration().getConfigurationSection("selectors").contains(selector) && player.hasPermission("bedwarsgames.selector." + selector)) {
             ConfigurationSection menuConfig = BedwarsGames.getConfiguration().getConfigurationSection("selectors").getConfigurationSection(selector).getConfigurationSection("menu");
             RandomMapGui chestGui = new RandomMapGui(player, menuConfig.getInt("rows"), menuConfig.getString("title"));
             chestGui.changeGuiToMain(selector, menuConfig);
