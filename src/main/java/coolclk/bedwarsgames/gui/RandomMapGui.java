@@ -26,7 +26,7 @@ public class RandomMapGui extends ChestGui {
         if (selector == null) {
             selector = "_GLOBAL_";
         }
-        if (selector.equals("_GLOBAL_") || BedwarsGames.getConfiguration().getConfigurationSection("modes").contains(selector) && player.hasPermission("bedwarsgames.mode." + selector)) {
+        if (BedwarsGames.getConfiguration().getConfigurationSection("modes").contains(selector) && player.hasPermission("bedwarsgames.mode." + selector)) {
             ConfigurationSection menuConfig = BedwarsGames.getConfiguration().getConfigurationSection("selectors").getConfigurationSection(selector).getConfigurationSection("menu");
             RandomMapGui chestGui = new RandomMapGui(player, menuConfig.getInt("rows"), menuConfig.getString("title"));
             chestGui.changeGuiToMain(selector, menuConfig, chestGui);
@@ -112,7 +112,7 @@ public class RandomMapGui extends ChestGui {
     }
     
     protected void generateMapSlots(List<Game> games, ChestGui chestGui, int startSlot, int size) {
-        for (int i = 0; i < chestGui.getInventory().getSize() - 9 && startSlot < games.size(); i++) {
+        for (int i = 0; i < size && startSlot < games.size(); i++) {
             Game game = games.get(i);
             ItemStack mapItem = new ItemStack(Material.STAINED_CLAY, 1, (game.getState() == GameState.WAITING ? (short) 5 : (game.getState() == GameState.RUNNING ? (short) 4 : (short) 14)));
             ItemMeta mapItemMeta = mapItem.getItemMeta();
