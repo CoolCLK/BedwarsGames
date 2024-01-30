@@ -27,7 +27,7 @@ public class EventListener implements Listener {
         return INSTANCE;
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onBedwarsGameStarted(BedwarsGameStartedEvent event) {
         ConfigurationSection gamesConfig = BedwarsGames.getConfiguration().getConfigurationSection("games");
         if (gamesConfig.getKeys(false).contains(event.getGame().getName())) {
@@ -53,10 +53,12 @@ public class EventListener implements Listener {
     public void onEntityDamage(EntityDamageEvent event) {
         if (event.getEntityType() == EntityType.PLAYER) {
             Player player = (Player) event.getEntity();
-            String gameName = BedwarsRelApi.getGameOfPlayer(player).getName();
-            ConfigurationSection gameConfiguration = BedwarsGames.getConfiguration().getConfigurationSection("games." + gameName);
-            if (gameConfiguration != null && gameConfiguration.contains("damage." + event.getCause().name())) {
-                event.setCancelled(!gameConfiguration.getBoolean("damage." + event.getCause().name()));
+            if (BedwarsRelApi.isInGame(player)) {
+                String gameName = BedwarsRelApi.getGameOfPlayer(player).getName();
+                ConfigurationSection gameConfiguration = BedwarsGames.getConfiguration().getConfigurationSection("games." + gameName);
+                if (gameConfiguration != null && gameConfiguration.contains("damage." + event.getCause().name())) {
+                    event.setCancelled(!gameConfiguration.getBoolean("damage." + event.getCause().name()));
+                }
             }
         }
     }
