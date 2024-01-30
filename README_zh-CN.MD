@@ -107,7 +107,7 @@ games:
 
 ## 语言
 
-You can modify **config.yml** change the messages, or you can download the language of the **config.yml** on [here](src/main/resources/languages).
+你可以通过修改 **config.yml** 改变消息, 或者在[这里](src/main/resources/languages)下载对应的 **config.yml** .
 
 ## 开发
 
