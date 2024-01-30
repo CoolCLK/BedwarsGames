@@ -24,10 +24,11 @@ messages:
   map-state-waiting: '§a等待中'
   map-state-running: '§e运行中'
   map-state-stopping: '§c停止中'
+  map-not-found: '§c无法找到合适的游戏加入!'
   map-join: '§e点击加入!'
   replace-shop: '§a成功将游戏 "{game}" 商店替换为 "{shop}"!'
-  player-in-game: '§c你正在游戏中!'
-  game-stopping: '§c游戏已停止!'
+  game-running: '§e游戏运行中!'
+  game-stopped: '§c游戏已停止!'
 
 modes:
   _DEFAULT_:
