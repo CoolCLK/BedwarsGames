@@ -25,9 +25,11 @@ messages:
   map-state-running: '§eRunning'
   map-state-stopping: '§cStopping'
   map-join: '§eClick to join!'
+  map-not-found: '§cCannot found suitable game to join!'
   replace-shop: '§aSuccessfully replace game "{game}" shop to "{shop}"!'
   player-in-game: '§cYou are in game!'
-  game-stopping: '§cGame is stopping!'
+  game-running: '§eGame is running!'
+  game-stopped: '§cGame is stopped!'
 
 modes:
   _DEFAULT_:
