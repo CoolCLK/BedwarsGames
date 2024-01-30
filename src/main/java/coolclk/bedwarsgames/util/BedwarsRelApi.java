@@ -14,24 +14,17 @@ public class BedwarsRelApi {
         return BedwarsRel.getInstance().getGameManager().getGameOfPlayer(player);
     }
 
+    public static boolean isInGame(Player player) {
+        return getGameOfPlayer(player) != null;
+    }
+
     public static boolean joinGame(Player player, Game game) {
-        if (game.getState() == GameState.RUNNING) {
-            return watchGame(player, game);
-        }
         if (getGameOfPlayer(player) == null) {
             return game.playerJoins(player);
         }
         return false;
     }
-
-    public static boolean watchGame(Player player, Game game) {
-        if (getGameOfPlayer(player) == null) {
-            game.toSpectator(player);
-            return true;
-        }
-        return false;
-    }
-
+    
     public static int getGameMaxPlayers(Game game) {
         return game.getMaxPlayers();
     }
