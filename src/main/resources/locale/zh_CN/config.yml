@@ -20,6 +20,7 @@ messages:
   change-game: '§b更换地图: §e{map}'
   map-name: '§a{name}'
   map-mode: '§7模式: §a{mode}'
+  map-mode-extra: '§7{mode}'
   map-players: '§7玩家: {players}/{max_players}'
   map-state-waiting: '§a等待中'
   map-state-running: '§e运行中'
@@ -27,16 +28,23 @@ messages:
   map-not-found: '§c无法找到合适的游戏加入!'
   map-join: '§e点击加入!'
   replace-shop: '§a成功将游戏 "{game}" 商店替换为 "{shop}"!'
+  replace-team-shop: '§a成功将游戏 "{game}" 队伍商店替换为 "{shop}"!'
   game-running: '§e游戏运行中!'
   game-stopped: '§c游戏已停止!'
+  unknown-damage-cause: '§c {game} 中未知的伤害来源 "{cause}" , 已忽略.'
 
 modes:
   _DEFAULT_:
     name: '§7普通模式'
   tnt-mode:
     name: '§cTNT 模式'
+  # 如果你装载了 BedwarsXP ，不要删掉它！
   xp-mode:
-    name: '经验模式'
+    name: '§a经验模式'
+    # 举个例子，如果有个资源叫“钻石”，但是它并不在 BedwarsXP 配置的资源里。
+    # 正常情况下，它不会作为物品被捡起，反而会被移除。
+    # 如果你想要允许像“钻石”此类资源能被正常拾取，请设定此选项为 true
+    allow-non-configured-item: false
 
 selectors:
   _GLOBAL_:
@@ -243,7 +251,8 @@ games:
   tnt-game:
     mode: tnt-mode
     shop: tnt-shop.yml
-    damage:
-      FALL: false
-      BLOCK_EXPLOSION: true
-      ENTITY_EXPLOSION: true
+    events:
+      damage:
+        FALL: false
+        BLOCK_EXPLOSION: true
+        ENTITY_EXPLOSION: true

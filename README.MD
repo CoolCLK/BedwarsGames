@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This is a plugin depends on [BedwarsRel](https://github.com/BedwarsRel/BedwarsRel) 1.3.6.
+This is a plugin depends on [BedwarsRel](https://github.com/BedwarsRel/BedwarsRel) 1.3.6, and support [BedwarsXP](https://github.com/SakuraKoi/BedwarsXP).
 
 This plugin allows you to use special settings for a game.
 
@@ -104,10 +104,6 @@ games:
       ENTITY_EXPLOSION: false
 ...
 ```
-
-## Languages
-
-You can modify **config.yml** change the messages, or you can download the language of the **config.yml** on [here](src/main/resources/languages).
 
 ## Develop
 

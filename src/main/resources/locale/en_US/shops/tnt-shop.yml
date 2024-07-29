@@ -1,0 +1,53 @@
+### SHOP ###
+### NOT ALLOWED CATEGORY MATERIAL: SLIME_BALL, SNOW_BALL, BUCKET, LAVA_BUCKET
+shop:
+  tnt-mode:
+    item: TNT
+    name: "TNT Shop"
+    order: 10
+    permission: bw.base
+    lore:
+      - "Click here"
+    offers:
+      - price:
+          - type: TNT
+            amount: 10
+        reward:
+          - type: STONE_SWORD
+            meta:
+              ==: ItemMeta
+              meta-type: UNSPECIFIC
+      - price:
+          - type: TNT
+            amount: 64
+        reward:
+          - type: CHAINMAIL_CHESTPLATE
+            meta:
+              ==: ItemMeta
+              meta-type: UNSPECIFIC
+              lore:
+                - "§a§r§m§o§r§0§0§1"
+      - price:
+          - type: TNT
+            amount: 4
+        reward:
+          - type: STAINED_CLAY
+            damage: 2
+            amount: 16
+      - price:
+          - type: TNT
+            amount: 4
+        reward:
+          - type: STONE_PICKAXE
+            meta:
+              ==: ItemMeta
+              meta-type: UNSPECIFIC
+      - price:
+          - type: FIREBALL
+            amount: 1
+        reward:
+          - type: GOLDEN_APPLE
+            meta:
+              ==: ItemMeta
+              meta-type: UNSPECIFIC
+schema-version: 1

@@ -6,7 +6,7 @@
 
 ## 简介
 
-这是一个依赖于 [BedwarsRel](https://github.com/BedwarsRel/BedwarsRel) 1.3.6 的插件。
+这是一个依赖于 [BedwarsRel](https://github.com/BedwarsRel/BedwarsRel) 1.3.6 的插件，同时支持 [BedwarsXP](https://github.com/SakuraKoi/BedwarsXP)。
 
 这个插件允许你对游戏进行特别设定。
 
@@ -104,10 +104,6 @@ games:
       ENTITY_EXPLOSION: false
 ...
 ```
-
-## 语言
-
-你可以通过修改 **config.yml** 改变消息, 或者在[这里](src/main/resources/languages)下载对应的 **config.yml** .
 
 ## 开发
 

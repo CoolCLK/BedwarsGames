@@ -2,6 +2,7 @@ package coolclk.bedwarsgames.command;
 
 import coolclk.bedwarsgames.BedwarsGames;
 import coolclk.bedwarsgames.gui.RandomMapGui;
+import coolclk.bedwarsgames.util.PluginUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,45 +20,46 @@ public class BedwarsGamesCommand implements CommandExecutor, TabCompleter {
         return INSTANCE;
     }
 
+    @SuppressWarnings("CallToPrintStackTrace")
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         List<String> messages = new ArrayList<>();
         if (strings.length >= 1) {
             switch (strings[0]) {
                 case "help": {
-                    messages.addAll(BedwarsGames.getMessages("help-message"));
+                    messages.addAll(BedwarsGames.getConfiguration().getMessageManager().getAll("help-message"));
                     break;
                 }
                 case "selector": {
                     if (commandSender instanceof Player) {
                         RandomMapGui.openSelectorGui(strings.length > 1 ? strings[1] : null, (Player) commandSender);
                     } else {
-                        messages.add(BedwarsGames.getMessage("not-player"));
+                        messages.add(BedwarsGames.getConfiguration().getMessageManager().get("not-player"));
                     }
                     break;
                 }
                 case "reload": {
                     if (commandSender.hasPermission("bedwarsgames.admin")) {
-                        messages.add(BedwarsGames.getMessage("reloading"));
+                        messages.add(BedwarsGames.getConfiguration().getMessageManager().get("reloading"));
                         try {
-                            BedwarsGames.getInstance().reloadConfig();
-                            messages.add(BedwarsGames.getMessage("reloaded"));
+                            PluginUtil.getPluginInstance(BedwarsGames.class).reloadConfig();
+                            messages.add(BedwarsGames.getConfiguration().getMessageManager().get("reloaded"));
                         } catch (Exception e) {
-                            messages.add(BedwarsGames.getMessage("reload-error"));
+                            messages.add(BedwarsGames.getConfiguration().getMessageManager().get("reload-error"));
                             e.printStackTrace();
                         }
                     }
                     break;
                 }
                 default: {
-                    messages.add(BedwarsGames.getMessage("unknown-command"));
+                    messages.add(BedwarsGames.getConfiguration().getMessageManager().get("unknown-command"));
                     break;
                 }
             }
         } else {
-            messages.add(BedwarsGames.getMessage("unknown-command"));
+            messages.add(BedwarsGames.getConfiguration().getMessageManager().get("unknown-command"));
         }
-        messages.forEach(message -> commandSender.sendMessage(BedwarsGames.getConfiguration().getString("prefix") + message));
+        messages.forEach(message -> commandSender.sendMessage(BedwarsGames.getConfiguration().getPrefix() + message));
         return true;
     }
 
@@ -67,7 +69,7 @@ public class BedwarsGamesCommand implements CommandExecutor, TabCompleter {
         if (strings.length <= 1) {
             tab.addAll(Arrays.asList("help", "reload", "selector"));
         } else if (strings[0].equals("selector") && strings.length == 2) {
-            tab.addAll(BedwarsGames.getInstance().getConfig().getConfigurationSection("selectors").getKeys(false));
+            tab.addAll(PluginUtil.getPluginInstance(BedwarsGames.class).getConfig().getConfigurationSection("selectors").getKeys(false));
         }
         tab.removeIf(t -> !t.startsWith(strings[strings.length - 1]));
         return tab;

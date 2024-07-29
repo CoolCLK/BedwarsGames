@@ -27,17 +27,24 @@ messages:
   map-join: '§eClick to join!'
   map-not-found: '§cCannot found suitable game to join!'
   replace-shop: '§aSuccessfully replace game "{game}" shop to "{shop}"!'
+  replace-team-shop: '§aSuccessfully replace game "{game}" team shop to "{shop}"!'
   player-in-game: '§cYou are in game!'
   game-running: '§eGame is running!'
   game-stopped: '§cGame is stopped!'
+  unknown-damage-cause: '§cUnknown damage cause "{cause}" in {game}, ignored.'
 
 modes:
   _DEFAULT_:
     name: '§7Normal'
   tnt-mode:
     name: '§cTNT Mode'
+  # If you enabled BedwarsXP, don't remove it!
   xp-mode:
-    name: 'XP Mode'
+    name: '§aXP Mode'
+    # For example, if "diamond" resources not in BedwarsXP's configured resources.
+    # In default, it won't be pick up as an item but remove it.
+    # If you want the resources such as "diamond", you can turn this option to "true".
+    allow-non-configured-resources: false
 
 selectors:
   _GLOBAL_:
@@ -241,10 +248,12 @@ selectors:
 games:
   xp-game:
     mode: xp-mode
+    shop: xp-team-shop.yml
   tnt-game:
     mode: tnt-mode
     shop: tnt-shop.yml
-    damage:
-      FALL: false
-      BLOCK_EXPLOSION: true
-      ENTITY_EXPLOSION: true
+    events:
+      damage:
+        FALL: false
+        BLOCK_EXPLOSION: true
+        ENTITY_EXPLOSION: true
