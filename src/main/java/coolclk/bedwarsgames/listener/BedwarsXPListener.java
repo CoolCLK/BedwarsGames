@@ -16,7 +16,7 @@ public class BedwarsXPListener implements Listener {
         return INSTANCE;
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerPickupItem(@SuppressWarnings("deprecation") PlayerPickupItemEvent event) {
         if (BedwarsRelApi.isInGame(event.getPlayer())) {
             BedwarsGamesConfiguration.GameManager.Game game = BedwarsGames.getConfiguration().getGameManager().get(BedwarsRelApi.getGameOfPlayer(event.getPlayer()));

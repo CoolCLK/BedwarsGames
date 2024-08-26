@@ -33,7 +33,11 @@ public class BedwarsXPApi {
         return Config.resources;
     }
 
+    public static Integer getResourceXP(Material material) {
+        return getResources().get(material);
+    }
+
     public static boolean containsResource(Material material) {
-        return getResources().containsKey(material);
+        return getResources().containsKey(material) && getResourceXP(material) > 0;
     }
 }

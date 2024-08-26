@@ -135,6 +135,10 @@ public class BedwarsGamesConfiguration {
             return getModes().stream().filter(mode -> Objects.equals(mode.getId(), name)).findAny().orElse(null);
         }
 
+        public Mode getDefaultMode() {
+            return getMode(BedwarsGamesConstant.MODE_DEFAULT);
+        }
+
         public Mode.XPMode getXPMode() {
             return (Mode.XPMode) getMode(BedwarsGamesConstant.MODE_XP);
         }
@@ -260,7 +264,7 @@ public class BedwarsGamesConfiguration {
 
             @SuppressWarnings("unused")
             default ModeManager.Mode getMode() {
-                return this.configuration().getModeManager().getMode(BedwarsGamesConstant.MODE_DEFAULT);
+                return this.configuration().getModeManager().getDefaultMode();
             }
 
             default YamlConfiguration getShop() {
@@ -351,7 +355,10 @@ public class BedwarsGamesConfiguration {
 
             @Override
             public ModeManager.Mode getMode() {
-                return BedwarsGames.getConfiguration().getModeManager().getMode(this.gameSection.getString(BedwarsGamesConstant.GAME_MODE_SECTION));
+                if (this.gameSection.contains(BedwarsGamesConstant.GAME_MODE_SECTION)) {
+                    return BedwarsGames.getConfiguration().getModeManager().getMode(this.gameSection.getString(BedwarsGamesConstant.GAME_MODE_SECTION));
+                }
+                return XPGame.super.getMode();
             }
 
             @Override
