@@ -20,6 +20,7 @@ messages:
   change-game: '§bChange map: §e{map}'
   map-name: '§a{name}'
   map-mode: '§7Mode: §a{mode}'
+  map-mode-extra: '§7({mode}§7)'
   map-players: '§7Players: {players}/{max_players}'
   map-state-waiting: '§aWaiting'
   map-state-running: '§eRunning'
@@ -47,21 +48,24 @@ modes:
     allow-non-configured-resources: false
 
 selectors:
+  # If you run the command "/bedwarsgames selector [Selector]" to try to open a non-existent selector,
+  # you will be redirected to this selector.
+  # The games option is optional. If you left it empty, it will list all active games.
   _GLOBAL_:
     menu:
-      title: 'Bedwars (All)'
+      title: 'Bedwars='
       rows: 6
       items:
         random:
           slot: 12
-          name: '§aBedwars (All)'
+          name: '§aBedwars'
           lore:
             - '§7Play all bedwars game.'
             - ' '
             - '§eClick play!'
         map:
           slot: 14
-          name: '§aSelect Map (All)'
+          name: '§aSelect Map'
           lore:
             - '§7Choose a map'
             - '§7from active maps on server.'
@@ -85,7 +89,6 @@ selectors:
           name: '§eNext'
           lore: []
   solo:
-    name: 'Solo'
     menu:
       title: 'Bedwars (Solo)'
       rows: 4
@@ -112,7 +115,7 @@ selectors:
         page:
           slot: 31
           name: '§ePage §f[§e{page}§f/§b{max_page}§f]'
-          lore: 
+          lore:
             - '§7Click back to menu'
         previous:
           slot: 27
@@ -125,7 +128,6 @@ selectors:
     games:
       - ExampleGame
   double:
-    name: 'Double'
     menu:
       title: 'Bedwars (Double)'
       rows: 4
@@ -152,7 +154,7 @@ selectors:
         page:
           slot: 31
           name: '§ePage §f[§e{page}§f/§b{max_page}§f]'
-          lore: 
+          lore:
             - '§7Click back to menu'
         previous:
           slot: 27
@@ -165,7 +167,6 @@ selectors:
     games:
       - ExampleGame
   triple:
-    name: '3v3v3v3'
     menu:
       title: 'Bedwars (3v3v3v3)'
       rows: 4
@@ -192,7 +193,7 @@ selectors:
         page:
           slot: 31
           name: '§ePage §f[§e{page}§f/§b{max_page}§f]'
-          lore: 
+          lore:
             - '§7Click back to menu'
         previous:
           slot: 27
@@ -205,7 +206,6 @@ selectors:
     games:
       - ExampleGame
   fourfold:
-    name: '4v4v4v4'
     menu:
       title: 'Bedwars (4v4v4v4)'
       rows: 4
@@ -232,7 +232,7 @@ selectors:
         page:
           slot: 31
           name: '§ePage §f[§e{page}§f/§b{max_page}§f]'
-          lore: 
+          lore:
             - '§7Click back to menu'
         previous:
           slot: 27
@@ -248,7 +248,6 @@ selectors:
 games:
   xp-game:
     mode: xp-mode
-    shop: xp-team-shop.yml
   tnt-game:
     mode: tnt-mode
     shop: tnt-shop.yml

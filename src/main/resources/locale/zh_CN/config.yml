@@ -20,7 +20,7 @@ messages:
   change-game: '§b更换地图: §e{map}'
   map-name: '§a{name}'
   map-mode: '§7模式: §a{mode}'
-  map-mode-extra: '§7{mode}'
+  map-mode-extra: '§7({mode}§7)'
   map-players: '§7玩家: {players}/{max_players}'
   map-state-waiting: '§a等待中'
   map-state-running: '§e运行中'
@@ -47,21 +47,24 @@ modes:
     allow-non-configured-item: false
 
 selectors:
+  # 如果你允许 "/bedwarsgames selector [选择器]" 去尝试打开一个不存在的选择器，
+  # 你将会被重定向到这个选择器。
+  # 这有个例外：games 选项是可选的。你若是令其为空，这将使他列出当前所有可用的游戏。
   _GLOBAL_:
     menu:
-      title: '起床战争 (所有)'
+      title: '起床战争'
       rows: 4
       items:
         random:
           slot: 12
-          name: '§a起床战争 (所有)'
+          name: '§a起床战争'
           lore:
             - '§7游玩所有起床战争'
             - ' '
             - '§e点击游玩!'
         map:
           slot: 14
-          name: '§a选择地图 (所有)'
+          name: '§a选择地图'
           lore:
             - '§7从服务器可用的地图列表中'
             - '§7选择你想要游玩的地图。'
@@ -85,7 +88,6 @@ selectors:
           name: '§e下一页'
           lore: []
   solo:
-    name: '单人'
     menu:
       title: '起床战争 (单人)'
       rows: 4
@@ -125,7 +127,6 @@ selectors:
     games:
       - ExampleGame
   double:
-    name: '双人'
     menu:
       title: '起床战争 (双人)'
       rows: 4
@@ -165,7 +166,6 @@ selectors:
     games:
       - ExampleGame
   triple:
-    name: '3v3v3v3'
     menu:
       title: '起床战争 (3v3v3v3)'
       rows: 4
@@ -205,7 +205,6 @@ selectors:
     games:
       - ExampleGame
   quadruple:
-    name: '4v4v4v4'
     menu:
       title: '起床战争 (4v4v4v4)'
       rows: 4

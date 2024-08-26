@@ -1,6 +1,7 @@
 package coolclk.bedwarsgames.listener;
 
 import coolclk.bedwarsgames.BedwarsGames;
+import coolclk.bedwarsgames.BedwarsGamesConfiguration;
 import coolclk.bedwarsgames.util.BedwarsRelApi;
 import coolclk.bedwarsgames.util.BedwarsXPApi;
 import org.bukkit.event.EventHandler;
@@ -17,11 +18,12 @@ public class BedwarsXPListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerPickupItem(@SuppressWarnings("deprecation") PlayerPickupItemEvent event) {
-        if (BedwarsGames.getConfiguration().getModeManager().getXPMode().isAllowNonConfiguredResources()) {
-            if (BedwarsRelApi.isInGame(event.getPlayer()) && BedwarsXPApi.isGameEnabledXP(BedwarsRelApi.getGameOfPlayer(event.getPlayer()))) {
-                if (!BedwarsXPApi.containsResource(event.getItem().getItemStack().getType())) {
-                    if (event.isCancelled()) {
-                        event.setCancelled(false);
+        if (BedwarsRelApi.isInGame(event.getPlayer())) {
+            BedwarsGamesConfiguration.GameManager.Game game = BedwarsGames.getConfiguration().getGameManager().get(BedwarsRelApi.getGameOfPlayer(event.getPlayer()));
+            if (game.getMode() == BedwarsGames.getConfiguration().getModeManager().getXPMode() && game.asXPGame().isAllowNonConfiguredResources()) {
+                if (BedwarsXPApi.isGameEnabledXP(BedwarsRelApi.getGameOfPlayer(event.getPlayer()))) {
+                    if (!BedwarsXPApi.containsResource(event.getItem().getItemStack().getType())) {
+                        event.getPlayer().getInventory().addItem(event.getItem().getItemStack());
                     }
                 }
             }

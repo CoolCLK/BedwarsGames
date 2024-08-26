@@ -1,65 +1,65 @@
 # BedwarsGames
 
-[[English](README.MD)] | [[简体中文](README_zh-CN.MD)]
+[[简体中文](README.MD)]
 
 ---
 
-## Introduction
+## 简介
 
-This is a plugin depends on [BedwarsRel](https://github.com/BedwarsRel/BedwarsRel) 1.3.6, and support [BedwarsXP](https://github.com/SakuraKoi/BedwarsXP).
+这是一个依赖于 [BedwarsRel](https://github.com/BedwarsRel/BedwarsRel) 1.3.6 的插件，同时支持 [BedwarsXP](https://github.com/SakuraKoi/BedwarsXP)。
 
-This plugin allows you to use special settings for a game.
+这个插件允许你对游戏进行特别设定。
 
-## Use
+## 使用
 
-### Random map selector
+### 随机地图选择
 
-You can use command ```/bedwarsgames:bedwarsgames mode solo``` open your first map selector.
+你可以使用指令 ```/bedwarsgames:bedwarsgames mode solo``` 打开你的第一张地图选择器。
 
-It also supported random a map to join.
+它也支持随机一张地图加入。
 
-You can add or remove a mode and modify the menu like this:
+你可以添加或移除一个模式，也可以像这样修改界面:
 
 ```yaml
 ...
 modes:
   solo:
-    name: 'Solo'
+    name: '单人'
     menu:
-      title: 'Bedwars (Solo)'
+      title: '起床战争 (单人)'
       rows: 4
       items:
         random:
           slot: 12
-          name: '§aBedwars (Solo)'
+          name: '§a起床战争 (单人)'
           lore:
-            - '§7Play Solo bedwars game.'
+            - '§7游玩单人起床战争'
             - ' '
-            - '§eClick play!'
+            - '§e点击游玩!'
         map:
           slot: 14
-          name: '§aSelect Map (Solo)'
+          name: '§a选择地图 (单人)'
           lore:
-            - '§7Choose a map'
-            - '§7from active maps on server.'
+            - '§7从服务器可用的地图列表中'
+            - '§7选择你想要游玩的地图。'
             - ' '
-            - '§eClick choose!'
+            - '§e点击选择!'
         close:
           slot: 31
-          name: '§cClose'
+          name: '§c关闭'
           lore: []
         page:
           slot: 31
-          name: '§ePage §f[§e{page}§f/§b{max_page}§f]'
-          lore: 
-            - '§7Click back to menu'
+          name: '§e页面 §f[§e{page}§f/§b{max_page}§f]'
+          lore:
+            - '§7点击返回界面'
         previous:
           slot: 27
-          name: '§ePrevious'
+          name: '§e上一页'
           lore: []
         next:
           slot: 35
-          name: '§eNext'
+          name: '§e下一页'
           lore: []
     games:
       - Game1
@@ -67,11 +67,11 @@ modes:
 ...
 ```
 
-### Shop
+### 商店
 
-You can change shop for only one and more games. You need to drag the shop file to the **plugins/BedwarsGames/shops** folder.
+你可以对某个游戏设定特别的商店。你需要把商店文件拖到文件夹 **plugins/BedwarsGames/shops** 。
 
-For example, you just need to change **games** section of **config.yml** like below that:
+举个例子，你只需要像这样在 **config.yml** 的 **games** 中如此修改:
 
 ```yaml
 ...
@@ -81,11 +81,11 @@ games:
 ...
 ```
 
-That is! Only the game when it started plugin will replace the shop to you want.
+那就好了! 你就可以在特定游戏中使用特定商店了。
 
-### Damage
+### 伤害
 
-You can modify to enable damages in a game like this:
+你可以像这样修改某个游戏的特定伤害:
 
 ```yaml
 ...
@@ -105,9 +105,9 @@ games:
 ...
 ```
 
-## Develop
+## 开发
 
-You can try to download the plugin and import it as a dependency. And modify **plugin.yml** like this:
+你可以下载插件并将插件作为依赖导入，并在 **plugin.yml** 如此修改:
 
 ```yaml
 ...
@@ -115,3 +115,9 @@ depend:
   - BedwarsGames
 ...
 ```
+
+### 第三方插件
+
+#### BedwarsXP
+
+我们对 BedwarsXP 提供了相应支持，你可以

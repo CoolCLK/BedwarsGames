@@ -16,7 +16,7 @@ import java.util.List;
 public class BedwarsGamesCommand implements CommandExecutor, TabCompleter {
     private final static BedwarsGamesCommand INSTANCE = new BedwarsGamesCommand();
 
-    public static CommandExecutor getInstance() {
+    public static BedwarsGamesCommand getInstance() {
         return INSTANCE;
     }
 

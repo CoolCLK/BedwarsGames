@@ -1,15 +1,12 @@
 package coolclk.bedwarsgames;
 
 import coolclk.bedwarsgames.command.BedwarsGamesCommand;
-import coolclk.bedwarsgames.listener.BedwarsScoreBoardAddonListener;
 import coolclk.bedwarsgames.listener.BedwarsXPListener;
 import coolclk.bedwarsgames.listener.BedwarsRelListener;
+import coolclk.bedwarsgames.util.BedwarsRelApi;
+import coolclk.bedwarsgames.util.BedwarsXPApi;
 import coolclk.bedwarsgames.util.PluginUtil;
-import io.github.bedwarsrel.BedwarsRel;
-import ldcr.BedwarsXP.BedwarsXP;
-import me.ram.bedwarsscoreboardaddon.Main;
 import org.bukkit.Bukkit;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -28,19 +25,16 @@ public final class BedwarsGames extends JavaPlugin {
         }
         this.reloadConfig();
         Bukkit.getConsoleSender().sendMessage(getConfiguration().getPrefix() + getConfiguration().getMessageManager().get("plugin-enable"));
-        if (checkDependent(BedwarsRel.class, true)) {
+        if (checkDependent(BedwarsRelApi.isPluginEnable(), BedwarsRelApi.getPluginName(), true)) {
             Bukkit.getPluginManager().registerEvents(BedwarsRelListener.getInstance(), this);
-        } else return;
-        if (checkDependent(BedwarsXP.class, false)) {
-            Bukkit.getPluginManager().registerEvents(BedwarsXPListener.getInstance(), this);
+            if (checkDependent(BedwarsXPApi.isPluginEnable(), BedwarsXPApi.getPluginName(), false)) {
+                Bukkit.getPluginManager().registerEvents(BedwarsXPListener.getInstance(), this);
+            }
+            Bukkit.getPluginCommand("bedwarsgames").setExecutor(BedwarsGamesCommand.getInstance());
+            Bukkit.getPluginCommand("bedwarsgames").setTabCompleter(BedwarsGamesCommand.getInstance());
+            Bukkit.getPluginCommand("bg").setExecutor(BedwarsGamesCommand.getInstance());
+            Bukkit.getPluginCommand("bg").setTabCompleter(BedwarsGamesCommand.getInstance());
         }
-        if (checkDependent(Main.class, false)) {
-            Bukkit.getPluginManager().registerEvents(BedwarsScoreBoardAddonListener.getInstance(), this);
-        }
-        Bukkit.getPluginCommand("bedwarsgames").setExecutor(BedwarsGamesCommand.getInstance());
-        Bukkit.getPluginCommand("bedwarsgames").setTabCompleter((TabCompleter) BedwarsGamesCommand.getInstance());
-        Bukkit.getPluginCommand("bg").setExecutor(BedwarsGamesCommand.getInstance());
-        Bukkit.getPluginCommand("bg").setTabCompleter((TabCompleter) BedwarsGamesCommand.getInstance());
     }
 
     @Override
@@ -73,12 +67,11 @@ public final class BedwarsGames extends JavaPlugin {
         }
     }
 
-    private boolean checkDependent(Class<? extends JavaPlugin> clazz, boolean necessary) {
-        boolean b = PluginUtil.isPluginEnabled(clazz);
+    private boolean checkDependent(boolean b, String plugin, boolean necessary) {
         if (b) {
-            Bukkit.getConsoleSender().sendMessage(getConfiguration().getPrefix() + getConfiguration().getMessageManager().get("found-depend").replaceAll("\\{plugin}", PluginUtil.getPluginName(clazz)));
+            Bukkit.getConsoleSender().sendMessage(getConfiguration().getPrefix() + getConfiguration().getMessageManager().get("found-depend").replaceAll("\\{plugin}", plugin));
         } else if (necessary) {
-            Bukkit.getConsoleSender().sendMessage(getConfiguration().getPrefix() + getConfiguration().getMessageManager().get("no-depend").replaceAll("\\{plugin}", PluginUtil.getPluginName(clazz)));
+            Bukkit.getConsoleSender().sendMessage(getConfiguration().getPrefix() + getConfiguration().getMessageManager().get("no-depend").replaceAll("\\{plugin}", plugin));
             Bukkit.getPluginManager().disablePlugin(this);
         }
         return b;
@@ -87,7 +80,11 @@ public final class BedwarsGames extends JavaPlugin {
     @Override
     public void reloadConfig() {
         super.reloadConfig();
-        this.configuration = new BedwarsGamesConfiguration();
+        try {
+            this.configuration = new BedwarsGamesConfiguration();
+        } catch (ConfigurationException e) {
+            throw new RuntimeException("There is a exception while reloading to a new configuration", e);
+        }
     }
 
     public static BedwarsGamesConfiguration getConfiguration() {
